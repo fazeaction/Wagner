@@ -7,7 +7,7 @@ Fork of [spite/Wagner](http://github.com/spite/Wagner) in commonjs for browserif
 ## Installation
 
 ```bash
-npm install @superguigui/wagner glslify three --save
+npm install @superguigui/wagner glslify three.js --save
 ```
 
 ## Usage
