@@ -123,19 +123,10 @@ Composer.prototype.setSize = function(w, h) {
   this.width = w;
   this.height = h;
 
-  this.camera.projectionMatrix.makeOrthographic(w / -2, w / 2, h / 2, h / -2, this.camera.near, this.camera.far);
-  this.quad.scale.set(w, h, 1);
+  this.camera.projectionMatrix.makeOrthographic( w / - 2, w / 2, h / 2, h / - 2, this.camera.near, this.camera.far );
+  this.quad.scale.set( w, h, 1 );
 
-  var rt = this.front.clone();
-  rt.width = w;
-  rt.height = h;
-  if (this.quad.material instanceof Pass) {
-    this.quad.material.uniforms.tInput.value = rt;
-  }
-  this.front = rt;
-
-  rt = this.back.clone();
-  rt.width = w;
-  rt.height = h;
-  this.back = rt;
+  this.front.setSize( w, h );
+  this.back.setSize( w, h );
 };
+
