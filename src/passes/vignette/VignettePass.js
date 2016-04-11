@@ -5,13 +5,13 @@ var Pass = require('../../Pass');
 var vertex = glslify('../../shaders/vertex/basic.glsl');
 var fragment = glslify('./vignette-fs.glsl');
 
-function VignettePass(boost, reduction) {
+function VignettePass(options) {
   Pass.call(this);
 
   this.setShader(vertex, fragment);
 
-  this.params.boost = boost || 2;
-  this.params.reduction = reduction || 2;
+  this.params.boost = options.boost || 1;
+  this.params.reduction = options.reduction || 1;
 }
 
 module.exports = VignettePass;
