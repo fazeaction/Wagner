@@ -3,7 +3,7 @@
 var THREE = require('three');
 var glslify = require('glslify');
 var Pass = require('../../Pass');
-var vertex = glslify('../../shaders/vertex/basic.glsl');
+var vertex = glslify('./box-blur-vs.glsl');
 var fragment = glslify('./box-blur-fs.glsl');
 
 function BoxBlurPass(deltaX, deltaY) {
