@@ -1,7 +1,6 @@
-// non-dependent texture read according to : 
+// non-dependent texture read according to :
 // http://xissburg.com/faster-gaussian-blur-in-glsl/
 
-varying vec2 vUv;
 uniform sampler2D tInput;
 uniform vec2 delta;
 uniform vec2 resolution;
