@@ -62,17 +62,20 @@ Composer.prototype.render = function(scene, camera, keep, output) {
   if (!output) this.swapBuffers();
 };
 
-Composer.prototype.toScreen = function() {
-  this.quad.material = this.copyPass.shader;
+Composer.prototype.toScreen = function(custompass) {
+
+  this.quad.material = custompass ? custompass.shader : this.copyPass.shader;
   this.quad.material.uniforms.tInput.value = this.read;
   this.quad.material.uniforms.resolution.value.set(this.width, this.height);
   this.renderer.render(this.scene, this.camera);
 };
 
-Composer.prototype.toTexture = function(t) {
-  this.quad.material = this.copyPass.shader;
+Composer.prototype.toTexture = function(t, custompass) {
+
+  this.quad.material = custompass ? custompass.shader : this.copyPass.shader;
   this.quad.material.uniforms.tInput.value = this.read;
   this.renderer.render(this.scene, this.camera, t, false);
+
 };
 
 Composer.prototype.pass = function(pass) {
