@@ -64,11 +64,11 @@ MultiPassBloomPass.prototype.run = function(composer) {
 
   if (this.params.useTexture === true) {
     this.blendPass.params.mode = BlendMode.Screen;
-    this.blendPass.params.tInput = this.params.glowTexture;
+    this.blendPass.params.tInput = this.params.glowTexture.texture;
     composer.pass(this.blendPass);
   }
 
   this.blendPass.params.mode = this.params.blendMode;
-  this.blendPass.params.tInput2 = this.composer.output;
+  this.blendPass.params.tInput2 = this.composer.output.texture;
   composer.pass(this.blendPass);
 };
