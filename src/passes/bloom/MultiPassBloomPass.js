@@ -48,9 +48,9 @@ MultiPassBloomPass.prototype.run = function(composer) {
   this.composer.reset();
 
   if (this.params.useTexture === true) {
-    this.composer.setSource(this.params.glowTexture);
+    this.composer.setSource(this.params.glowTexture.texture);
   } else {
-    this.composer.setSource(composer.output);
+    this.composer.setSource(composer.output.texture);
   }
 
   this.blurPass.params.amount = this.params.blurAmount;
