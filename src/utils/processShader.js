@@ -4,7 +4,8 @@ var THREE = require('three');
 
 module.exports = function processShader(vertexShaderCode, fragmentShaderCode) {
 
-  var regExp = /uniform\s+([^\s]+)\s+([^\s]+)\s*;/gi;
+  var regExp = /uniform\s+(lowp|mediump|highp)?\s*([^\s]+)\s+([^\s]+)\s*;/gi;
+
   var regExp2 = /uniform\s+([^\s]+)\s+([^\s]+)\s*\[\s*(\w+)\s*\]*\s*;/gi;
 
   var typesMap = {
@@ -50,8 +51,8 @@ module.exports = function processShader(vertexShaderCode, fragmentShaderCode) {
     if (matches.index === regExp.lastIndex) {
       regExp.lastIndex++;
     }
-    uniformType = matches[1];
-    uniformName = matches[2];
+    uniformType = matches[2];
+    uniformName = matches[3];
 
     uniforms[uniformName] = {
       type: typesMap[uniformType].type,
