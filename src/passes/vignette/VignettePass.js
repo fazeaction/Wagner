@@ -8,6 +8,8 @@ var fragment = glslify('./vignette-fs.glsl');
 function VignettePass(options) {
   Pass.call(this);
 
+  options = options || {};
+
   this.setShader(vertex, fragment);
 
   this.params.boost = options.boost || 1;
