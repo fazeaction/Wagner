@@ -3,7 +3,6 @@ uniform sampler2D tInput;
 uniform sampler2D tBias;
 uniform float focalDistance;
 uniform float aperture;
-uniform float blurAmount;
 uniform vec2 delta;
 
 float random(vec3 scale,float seed){return fract(sin(dot(gl_FragCoord.xyz+seed,scale))*43758.5453+seed);}
