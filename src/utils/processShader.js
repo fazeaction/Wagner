@@ -78,11 +78,16 @@ module.exports = function processShader(vertexShaderCode, fragmentShaderCode) {
     uniforms: uniforms,
     vertexShader: vertexShaderCode,
     fragmentShader: fragmentShaderCode,
-    shading: THREE.FlatShading,
     depthWrite: false,
     depthTest: false,
     transparent: true
   });
+
+  if (parseInt(THREE.REVISION) < 87) {
+    shader.shading = THREE.FlatShading
+  } else {
+    shader.flatShading = true
+  }
 
   return shader;
 };

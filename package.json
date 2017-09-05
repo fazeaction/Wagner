@@ -4,7 +4,7 @@
   "description": "Fork of spite/Wagner in commonjs for browserify and glslify.",
   "main": "index.js",
   "scripts": {
-    "start": "budo example/index.js:example/bundle.js --live -t glslify | garnish",
+    "start": "budo example/index.js:example/bundle.js --live --open -t glslify | garnish",
     "build": "browserify example/index.js -t glslify | uglifyjs -nm > example/bundle.js",
     "test": "browserify test/test.js"
   },
