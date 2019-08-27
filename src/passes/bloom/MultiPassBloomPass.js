@@ -48,14 +48,14 @@ MultiPassBloomPass.prototype.run = function(composer) {
   this.composer.reset();
 
   if (this.params.useTexture === true) {
-    this.composer.setSource(this.params.glowTexture.texture);
+    this.composer.setSource(this.params.glowTexture);
   } else {
-    this.composer.setSource(composer.output.texture);
+    this.composer.setSource(composer.output);
   }
 
   this.blurPass.params.amount = this.params.blurAmount;
   this.composer.pass(this.blurPass);
-  
+
   if (this.params.applyZoomBlur) {
     this.zoomBlur.params.center.set(0.5, 0.5);
     this.zoomBlur.params.strength = this.params.zoomBlurStrength;
@@ -64,7 +64,7 @@ MultiPassBloomPass.prototype.run = function(composer) {
 
   if (this.params.useTexture === true) {
     this.blendPass.params.mode = BlendMode.Screen;
-    this.blendPass.params.tInput = this.params.glowTexture.texture;
+    this.blendPass.params.tInput = this.params.glowTexture;
     composer.pass(this.blendPass);
   }
 

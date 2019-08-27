@@ -8,8 +8,8 @@ var Pass = require('./Pass');
 function Composer(renderer, settings) {
   var pixelRatio = renderer.getPixelRatio();
 
-  this.width  = Math.floor(renderer.context.canvas.width  / pixelRatio) || 1;
-  this.height = Math.floor(renderer.context.canvas.height / pixelRatio) || 1;
+  this.width  = Math.floor(renderer.getContext().canvas.width  / pixelRatio) || 1;
+  this.height = Math.floor(renderer.getContext().canvas.height / pixelRatio) || 1;
 
   this.output = null;
   this.input = null;
@@ -58,7 +58,8 @@ Composer.prototype.swapBuffers = function() {
 
 Composer.prototype.render = function(scene, camera, keep, output) {
   if (keep) this.swapBuffers();
-  this.renderer.render(scene, camera, output ? output : this.write, true);
+  this.renderer.setRenderTarget(output ? output : this.write);
+  this.renderer.render(scene, camera);
   if (!output) this.swapBuffers();
 };
 
@@ -67,13 +68,14 @@ Composer.prototype.toScreen = function(pass) {
   this.quad.material = pass ? pass.shader : this.copyPass.shader;
   this.quad.material.uniforms.tInput.value = this.read.texture;
   this.quad.material.uniforms.resolution.value.set(this.width, this.height);
+  this.renderer.setRenderTarget(null);
   this.renderer.render(this.scene, this.camera);
 };
 
 Composer.prototype.toTexture = function(t, pass) {
 
   this.quad.material = pass ? pass.shader : this.copyPass.shader;
-  this.quad.material.uniforms.tInput.value = this.read.texture;
+  this.quad.material.uniforms.tInput.value = this.read;
   this.renderer.render(this.scene, this.camera, t, false);
 
 };
@@ -97,7 +99,8 @@ Composer.prototype.pass = function(pass) {
 
     this.quad.material.uniforms.resolution.value.set(this.width, this.height);
     this.quad.material.uniforms.time.value = 0.001 * (Date.now() - this.startTime);
-    this.renderer.render(this.scene, this.camera, this.write, false);
+    this.renderer.setRenderTarget(this.write);
+    this.renderer.render(this.scene, this.camera);
     this.swapBuffers();
   }
 };
@@ -117,8 +120,9 @@ Composer.prototype.reset = function() {
 
 Composer.prototype.setSource = function(src) {
   this.quad.material = this.copyPass.shader;
-  this.quad.material.uniforms.tInput.value = src;
-  this.renderer.render(this.scene, this.camera, this.write, true);
+  this.quad.material.uniforms.tInput.value = src.texture;
+  this.renderer.setRenderTarget(this.write);
+  this.renderer.render(this.scene, this.camera);
   this.swapBuffers();
 };
 
