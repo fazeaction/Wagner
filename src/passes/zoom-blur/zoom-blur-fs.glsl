@@ -14,9 +14,9 @@ void main(){
   for(float t=0.0;t<=40.0;t++){
     float percent=(t+offset)/40.0;
     float weight=4.0*(percent-percent*percent);
-    vec4 sample=texture2D(tInput,vUv+toCenter*percent*strength/resolution);
-    sample.rgb*=sample.a;
-    color+=sample*weight;
+    vec4 sampler=texture2D(tInput,vUv+toCenter*percent*strength/resolution);
+    sampler.rgb*=sampler.a;
+    color+=sampler*weight;
     total+=weight;
   }
   gl_FragColor=color/total;
